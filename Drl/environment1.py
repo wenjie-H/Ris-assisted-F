@@ -47,17 +47,17 @@ class SnekEnv(gym.Env):
         if done:
             if x == 10:
                 print('sus')
-                reward += 20
+                reward += 10
             else:
                 print('fail')
-                reward -= 100
+                reward -= 50
         else:
 
             y = self.last_state[0]
             if abs(10-y) > abs(10-x):
-                reward += 0.1
+                reward += 0.5
             else:
-                reward -= 0.1
+                reward -= 0.5
 
         self.last_state = self.state
         return self.state, reward, done, False, {}
