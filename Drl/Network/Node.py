@@ -7,6 +7,7 @@ class Node:
         self.cal_capacity = 0
         self.relay_num_capacity = 0
 
+
         self.s_pow = 0
         self.task = 0
         self.index = 0

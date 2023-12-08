@@ -38,6 +38,15 @@ class Network():
             self.link_d2i.append(BS_device_link)
             self.link_load_d2i.append(BS_device_load)
 
+    def clear_load(self):
+        for i in range(len(self.link_load_d2i)):
+            for j in range(len(self.link_load_d2i[0])):
+                self.link_load_d2i[i][j] = 1
+
+        for i in range(len(self.link_load_d2d)):
+            for j in range(len(self.link_load_d2d[0])):
+                self.link_load_d2d[i][j] = 1
+
 
 
 

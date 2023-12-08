@@ -1,6 +1,6 @@
 import random
 class BaseStation:
-    def __init__(self, pos_x, pos_y, type:int):
+    def __init__(self, pos_x, pos_y):
         self.position_x = pos_x
         self.position_y = pos_y
 
@@ -13,10 +13,7 @@ class BaseStation:
         self.cal_num_capacity = 0
         self.index = 0
 
-        if type == 1:
-            self.initCal1()
-        elif type == 2:
-            self.initCal2()
+
 
     def initCal1(self):
         self.cal_capacity = random.randint(50, 100) / 3

@@ -57,20 +57,21 @@ class UninstallEnvironment(gym.Env):
 
 
 
-# 测试环境
-env = UninstallEnvironment()
+if __name__ == '__main__':
+    # 测试环境
 
-# 重置环境
-state = env.reset()
+    env = UninstallEnvironment()
 
-# 执行一些动作
-for _ in range(20):
-    action = env.action_space.sample()  # 随机选择动作
-    next_state, reward, done, _ = env.step(action)
-    env.render()
+    # 重置环境
+    state = env.reset()
 
-    if done:
-        print("Episode finished after {} timesteps".format(env.current_step))
-        break
+    # 执行一些动作
+    for _ in range(20):
+        action = env.action_space.sample()  # 随机选择动作
+        next_state, reward, done, _ = env.step(action)
+        env.render()
 
+        if done:
+            print("Episode finished after {} timesteps".format(env.current_step))
+            break
 
