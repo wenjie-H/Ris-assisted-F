@@ -7,6 +7,8 @@ class BaseStation:
         self.each_layer_vehicles = [[], [], [], [], [], [], [], [], [], []]
         self.para_num = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
         self.off_vehicles = []
+        self.cal_load = 1
+
         self.cal_num = 15
 
         self.cal_capacity = 0

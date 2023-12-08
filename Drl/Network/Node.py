@@ -28,6 +28,7 @@ class Node:
         self.layers = []
         self.valuation = 0
         self.offload_decision = -1
+        self.off_BS_index = -1
 
         self.initTask()
 
