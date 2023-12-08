@@ -1,10 +1,11 @@
 from typing import List
-from Node import Node
-from Edge import BaseStation
-from Shannon import Shannon
+from EdgeNetwork.WNode import Node
+# from Node import Node
+from EdgeNetwork.Edge import BaseStation
+from EdgeNetwork.Shannon import Shannon
 from copy import deepcopy
 # from
-from Parameters import Max_layer
+from EdgeNetwork.Parameters import Max_layer
 # from CreateVehicleBS import CreateVehicleBSs, CreateVehicleBSsV2VNew, GetVehicleData, GetCandiVehicleData
 import copy
 

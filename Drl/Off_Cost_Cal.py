@@ -1,8 +1,8 @@
-from Network import *
-from Network.CreateMaps import generate_network
-from Network.Node import Node
-from Network.Edge import BaseStation
-from Network.Network import Network
+from EdgeNetwork import *
+from EdgeNetwork.CreateMaps import generate_network
+from EdgeNetwork.WNode import Node
+from EdgeNetwork.Edge import BaseStation
+from EdgeNetwork.Network import Network
 
 nodes_BSs = generate_network(200, 10, 800)
 print(nodes_BSs)
@@ -48,8 +48,10 @@ def calculate_off_delay(nodes:list, BSs:list, off_strategies:list):
         if node.offload_decision == 0:
             node.true_delay = node.task / node.cal_capacity
         else:
-            node.true_delay = node.task * BS_list[node.off_BS_index].cal_load / BS_list[node.off_BS_index].cal_capacity +
-            
+            node.true_delay = node.task * BS_list[node.off_BS_index].cal_load / BS_list[node.off_BS_index].cal_capacity + \
+                              node.task * links.link_load_d2i[node.index][node.off_BS_index] / links.link_d2i[node.index][node.off_BS_index]
+
+        print('node:', node.index, node.true_delay)
 
 
 

@@ -1,5 +1,5 @@
 import math
-from Parameters import CommunicationRange
+from EdgeNetwork.Parameters import CommunicationRange
 
 
 # SNR 必要模型参数

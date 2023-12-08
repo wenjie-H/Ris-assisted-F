@@ -14,6 +14,7 @@ class BaseStation:
         self.cal_capacity = 0
         self.cal_num_capacity = 0
         self.index = 0
+        self.initCal1()
 
 
 
