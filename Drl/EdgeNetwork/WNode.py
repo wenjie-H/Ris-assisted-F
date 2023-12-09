@@ -35,7 +35,7 @@ class Node:
 
 
     def initTask(self):
-        self.task = random.randint(100, 500)
+        self.task = random.randint(200, 500)
         self.valuation = random.randint(1000, 1500)
         self.deadline = random.randint(1000, 1200)
         self.cal_capacity = random.uniform(1, 2)/3

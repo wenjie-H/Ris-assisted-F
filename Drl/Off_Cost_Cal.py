@@ -3,8 +3,15 @@ from EdgeNetwork.CreateMaps import generate_network
 from EdgeNetwork.WNode import Node
 from EdgeNetwork.Edge import BaseStation
 from EdgeNetwork.Network import Network
+import logging
 
-nodes_BSs = generate_network(200, 10, 800)
+logging.basicConfig(filename='log.txt', level=logging.DEBUG, filemode='w')
+ch = logging.StreamHandler()
+logger = logging.getLogger()
+logger.addHandler(ch)
+
+
+nodes_BSs = generate_network(20, 16, 800)
 print(nodes_BSs)
 nodes = nodes_BSs[0]
 BSs = nodes_BSs[1]
@@ -15,11 +22,15 @@ for i in range(len(nodes)):
     off_s.append(1)
 
 def calculate_off_delay(nodes:list, BSs:list, off_strategies:list):
+
+
+
     node_list = []
     for node in nodes:
         node_list.append(Node(node[0], node[1]))
     for i in range(len(nodes)):
         node_list[i].index = i
+    logging.info('nodelist:'+str(len(node_list)))
 
     BS_list = []
     for BS in BSs:
@@ -51,8 +62,9 @@ def calculate_off_delay(nodes:list, BSs:list, off_strategies:list):
             node.true_delay = node.task * BS_list[node.off_BS_index].cal_load / BS_list[node.off_BS_index].cal_capacity + \
                               node.task * links.link_load_d2i[node.index][node.off_BS_index] / links.link_d2i[node.index][node.off_BS_index]
 
-        print('node:', node.index, node.true_delay)
-
+        logging.info('node:' + str(node.index) + str(node.true_delay))
+        # print('node:', node.index, node.true_delay)
+ 
 
 
 

@@ -19,9 +19,9 @@ class BaseStation:
 
 
     def initCal1(self):
-        self.cal_capacity = random.randint(50, 100) / 3
+        self.cal_capacity = random.randint(50, 80)
         self.cal_num_capacity = 20
 
     def initCal2(self):
-        self.cal_capacity = random.randint(10, 20) / 3
+        self.cal_capacity = random.randint(10, 20)
         self.cal_num_capacity = 5
