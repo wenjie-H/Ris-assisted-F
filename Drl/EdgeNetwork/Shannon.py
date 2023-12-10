@@ -30,5 +30,5 @@ def Shannon(x1, x2, y1, y2):#输入就是坐标
 
 
 if __name__ == '__main__':
-    for i in range(100):
+    for i in range(150):
         print(Shannon(0, 0, 0, i))
