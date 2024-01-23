@@ -12,13 +12,13 @@ from collections import deque
 # import gym
 # from gym import spaces
 
-class UninstallEnvironment(gym.Env):
+class OffloadingEnvironment(gym.Env):
     def __init__(self, num_nodes=45):
-        super(UninstallEnvironment, self).__init__()
+        super(OffloadingEnvironment, self).__init__()
 
         # 创造网络
         self.init_network(num_nodes)
-
+        self.num_nodes = num_nodes
 
         # 状态空间：每个节点可以是卸载或未卸载，用0和1表示
         self.observation_space = spaces.MultiBinary(num_nodes)
@@ -44,13 +44,17 @@ class UninstallEnvironment(gym.Env):
 
     def reset(self, seed=None, options=None):
         # 重置环境，返回初始状态
-        self.current_state = np.zeros(self.observation_space.shape)
+        off_s = []
+        for i in range(self.num_nodes):
+            off_s.append(random.randint(0, 1))
+        self.current_state = np.array(off_s)
         self.last_state = self.current_state
         self.current_step = 0
-        return self.current_state
+        return self.current_state, {}
 
     def step(self, action):
         # 执行动作，返回新的状态、奖励、是否终止和额外信息
+
 
         # 更新当前状态
         self.current_state = action
@@ -64,6 +68,7 @@ class UninstallEnvironment(gym.Env):
 
         # 检查是否达到终止条件
         done = np.all(self.current_state) or self.current_step >= self.max_steps
+
 
 
         # 更新步数
@@ -91,6 +96,7 @@ class UninstallEnvironment(gym.Env):
         return self.current_state, reward, done, {}
 
     def render(self):
+
         # 可选的渲染方法，用于显示环境状态
         print(f"Current State: {self.current_state}")
 
@@ -104,7 +110,7 @@ if __name__ == '__main__':
 
     # 测试环境
 
-    env = UninstallEnvironment()
+    env = OffloadingEnvironment()
 
     # 重置环境
     state = env.reset()
@@ -112,6 +118,7 @@ if __name__ == '__main__':
     # 执行一些动作
     for _ in range(20):
         action = env.action_space.sample()  # 随机选择动作
+        print(action)
         next_state, reward, done, _ = env.step(action)
         env.render()
 

@@ -11,7 +11,6 @@ import random
 def calculate_off_delay(nodes:list, BSs:list, off_strategies:list):
 
 
-
     node_list = []
     for node in nodes:
         node_list.append(Node(node[0], node[1]))
@@ -53,15 +52,17 @@ def calculate_off_delay(nodes:list, BSs:list, off_strategies:list):
     sum_delay = 0
     for node in node_list:
         sum_delay += node.true_delay
+
+        logging.info('node:' + str(node.index) + '---' + str(node.task) + '---' + str(node.offload_decision) + '---' + str(node.task * BS_list[node.off_BS_index].cal_load / BS_list[node.off_BS_index].cal_capacity) + ',' + str(node.task * links.link_load_d2i[node.index][node.off_BS_index] / links.link_d2i[node.index][node.off_BS_index]) + '---' + str(node.index) + '---' + str(node.true_delay))
+        # print('node:', node.index, node.off_BS_index, node.true_delay)
     return sum_delay
-        # logging.info('node:' + str(node.task) + '---' + str(node.offload_decision) + '---' + str(node.task * BS_list[node.off_BS_index].cal_load / BS_list[node.off_BS_index].cal_capacity) + ',' + str(node.task * links.link_load_d2i[node.index][node.off_BS_index] / links.link_d2i[node.index][node.off_BS_index]) + '---' + str(node.index) + '---' + str(node.true_delay))
-        # print('node:', , node.index, node.true_delay)
+
 
 if __name__ == '__main__':
     logging.basicConfig(filename='log.txt', level=logging.DEBUG, filemode='w')
     ch = logging.StreamHandler()
     logger = logging.getLogger()
-    # logger.addHandler(ch)
+    logger.addHandler(ch)
 
     nodes_BSs = generate_network(20, 16, 800)
     print(nodes_BSs)
