@@ -53,7 +53,7 @@ def calculate_off_delay(nodes:list, BSs:list, off_strategies:list):
     for node in node_list:
         sum_delay += node.true_delay
 
-        logging.info('node:' + str(node.index) + '---' + str(node.task) + '---' + str(node.offload_decision) + '---' + str(node.task * BS_list[node.off_BS_index].cal_load / BS_list[node.off_BS_index].cal_capacity) + ',' + str(node.task * links.link_load_d2i[node.index][node.off_BS_index] / links.link_d2i[node.index][node.off_BS_index]) + '---' + str(node.index) + '---' + str(node.true_delay))
+        # logging.info('node:' + str(node.index) + '---' + str(node.task) + '---' + str(node.offload_decision) + '---' + str(node.task * BS_list[node.off_BS_index].cal_load / BS_list[node.off_BS_index].cal_capacity) + ',' + str(node.task * links.link_load_d2i[node.index][node.off_BS_index] / links.link_d2i[node.index][node.off_BS_index]) + '---' + str(node.index) + '---' + str(node.true_delay))
         # print('node:', node.index, node.off_BS_index, node.true_delay)
     return sum_delay
 

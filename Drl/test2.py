@@ -1,29 +1,21 @@
-import logging
-import logging.handlers
+import gymnasium as gym
+from gymnasium import spaces
+import numpy as np
 
-logger = logging.getLogger("logger")
+# 定义观测空间的大小
+observation_space_size = (40, 40)
 
-handler1 = logging.StreamHandler()
-handler2 = logging.FileHandler(filename="test.log")
+# 观测空间的取值范围
+low = 0  # 最小值
+high = 255  # 最大值
 
-logger.setLevel(logging.DEBUG)
-handler1.setLevel(logging.WARNING)
-handler2.setLevel(logging.DEBUG)
+# 使用Box定义观测空间
+observation_space = spaces.Box(low=low, high=high, shape=observation_space_size, dtype=np.uint8)
 
-formatter = logging.Formatter("%(asctime)s %(name)s %(levelname)s %(message)s")
-handler1.setFormatter(formatter)
-handler2.setFormatter(formatter)
+# 生成一个随机观测样本
+sample_observation = observation_space.sample()
 
-logger.addHandler(handler1)
-logger.addHandler(handler2)
-
-# 分别为 10、30、30
-# print(handler1.level)
-# print(handler2.level)
-# print(logger.level)
-
-logger.debug('This is a customer debug message')
-logger.info('This is an customer info message')
-logger.warning('This is a customer warning message')
-logger.error('This is an customer error message')
-logger.critical('This is a customer critical message')
+# 打印观测空间和样本观测
+print("Observation Space:", observation_space)
+print("Sample Observation:")
+print(sample_observation)

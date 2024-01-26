@@ -20,8 +20,14 @@ class OffloadingEnvironment(gym.Env):
         self.init_network(num_nodes)
         self.num_nodes = num_nodes
 
+        # 观测空间的取值范围
+        low = 0  # 最小值
+        high = 255  # 最大值
+
         # 状态空间：每个节点可以是卸载或未卸载，用0和1表示
-        self.observation_space = spaces.MultiBinary(num_nodes)
+        self.observation_space = spaces.Box(low=low, high=high, shape=(num_nodes, num_nodes), dtype=np.uint8)
+
+        logging.info(str(self.observation_space.sample()))
 
         # 动作空间：每个节点可以选择卸载或保持，用0和1表示
         self.action_space = spaces.MultiBinary(num_nodes)
@@ -96,9 +102,9 @@ class OffloadingEnvironment(gym.Env):
         return self.current_state, reward, done, {}
 
     def render(self):
-
+        pass
         # 可选的渲染方法，用于显示环境状态
-        print(f"Current State: {self.current_state}")
+        # print(f"Current State: {self.current_state}")
 
 
 
@@ -118,7 +124,7 @@ if __name__ == '__main__':
     # 执行一些动作
     for _ in range(20):
         action = env.action_space.sample()  # 随机选择动作
-        print(action)
+        # print(action)
         next_state, reward, done, _ = env.step(action)
         env.render()
 
