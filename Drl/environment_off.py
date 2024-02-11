@@ -22,12 +22,12 @@ class OffloadingEnvironment(gym.Env):
 
         # 观测空间的取值范围
         low = 0  # 最小值
-        high = 255  # 最大值
+        high = 1000  # 最大值
 
         # 状态空间：每个节点可以是卸载或未卸载，用0和1表示
         self.observation_space = spaces.Box(low=low, high=high, shape=(num_nodes, num_nodes), dtype=np.uint8)
 
-        logging.info(str(self.observation_space.sample()))
+        # logging.info(str(self.observation_space.sample()))
 
         # 动作空间：每个节点可以选择卸载或保持，用0和1表示
         self.action_space = spaces.MultiBinary(num_nodes)
@@ -61,7 +61,6 @@ class OffloadingEnvironment(gym.Env):
     def step(self, action):
         # 执行动作，返回新的状态、奖励、是否终止和额外信息
 
-
         # 更新当前状态
         self.current_state = action
 
@@ -70,31 +69,15 @@ class OffloadingEnvironment(gym.Env):
         last_delay = calculate_off_delay(self.nodes, self.BSs, self.last_state)
 
         # 计算奖励
-        reward = -np.sum(action)  # 示例中每步的奖励为卸载的节点数量的负值
+        reward = -current_delay  # 示例中每步的奖励为卸载的节点数量的负值
+        logging.info('reward:' + str(reward))
 
         # 检查是否达到终止条件
-        done = np.all(self.current_state) or self.current_step >= self.max_steps
-
+        done = self.current_step >= self.max_steps
 
 
         # 更新步数
         self.current_step += 1
-
-        if done:
-            if np.all(self.current_state):
-                print('sus')
-                reward += 10
-            else:
-                print('fail')
-                reward -= 50
-        else:
-
-
-            if current_delay < last_delay:
-                reward += 0.5
-            else:
-                reward -= 0.5
-
 
         # 记录上一个状态
         self.last_state = self.current_state
@@ -122,7 +105,7 @@ if __name__ == '__main__':
     state = env.reset()
 
     # 执行一些动作
-    for _ in range(20):
+    for _ in range(1000):
         action = env.action_space.sample()  # 随机选择动作
         # print(action)
         next_state, reward, done, _ = env.step(action)

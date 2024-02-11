@@ -2,6 +2,7 @@
 # import time
 
 from environment1 import SnekEnv
+
 from stable_baselines3 import PPO
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.env_checker import check_env
