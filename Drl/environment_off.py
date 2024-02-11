@@ -12,9 +12,9 @@ from collections import deque
 # import gym
 # from gym import spaces
 
-class OffloadingEnvironment(gym.Env):
+class OffloadingEnv(gym.Env):
     def __init__(self, num_nodes=45):
-        super(OffloadingEnvironment, self).__init__()
+        super(OffloadingEnv, self).__init__()
 
         # 创造网络
         self.init_network(num_nodes)
@@ -99,7 +99,7 @@ if __name__ == '__main__':
 
     # 测试环境
 
-    env = OffloadingEnvironment()
+    env = OffloadingEnv()
 
     # 重置环境
     state = env.reset()
