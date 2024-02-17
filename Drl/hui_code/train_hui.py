@@ -1,22 +1,7 @@
-# import os.path
-# import time
-
-# from environment1 import SnekEnv
-
 from environment_off import OffloadingEnv
 from stable_baselines3 import PPO
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.env_checker import check_env
-import torch
-import time
-import os
-from stable_baselines3.common.vec_env.dummy_vec_env import DummyVecEnv
-def make_env():
-    def _init():
-        env = OffloadingEnv()
-        # env = Monitor(env, './logs/')  # 设置日志文件夹
-        return env
-    return _init
 
 def train():
     num_envs = 1
@@ -48,6 +33,3 @@ def train():
         model.save(os.path.join('models', model_name))
     print('Training finished')
     vec_env.close()
-
-
-train()

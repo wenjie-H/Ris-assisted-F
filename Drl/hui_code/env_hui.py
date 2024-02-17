@@ -1,22 +1,13 @@
-# import os.path
-# import time
 
-# from environment1 import SnekEnv
 
-from environment_off import OffloadingEnv
-from stable_baselines3 import PPO
-from stable_baselines3.common.evaluation import evaluate_policy
-from stable_baselines3.common.env_checker import check_env
-import torch
-import time
-import os
-from stable_baselines3.common.vec_env.dummy_vec_env import DummyVecEnv
+
 def make_env():
     def _init():
-        env = OffloadingEnv()
-        # env = Monitor(env, './logs/')  # 设置日志文件夹
+        env = SimpleEnv()
+        env = Monitor(env, './logs/')  # 设置日志文件夹
         return env
     return _init
+
 
 def train():
     num_envs = 1
@@ -50,4 +41,21 @@ def train():
     vec_env.close()
 
 
-train()
+def test():
+    env = SimpleEnv()
+    model = PPO.load('models/ppo_simple_cuda_2024-01-31_21-43-11.zip', env=env)
+    obs, info = env.reset()
+    for i in range(200):
+        action, _states = model.predict(obs, deterministic=False)
+        print('第', i, '次观察：', obs)
+        obs, rewards, terminated, truncated, info = env.step(action)
+        print('第', i, '次动作：', action)
+        print('第', i, '次奖励：', rewards)
+        # time.sleep(0.03)
+    print(env.detection_data)
+    print(env.ep_rew)
+    env.close()
+
+
+if __name__ == '__main__':
+    train()
