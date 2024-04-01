@@ -1,4 +1,4 @@
-CommunicationRange = 200
+CommunicationRange = 500
 Max_layer = 10
 MaxValue = float('inf')
 
