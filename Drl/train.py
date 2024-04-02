@@ -2,7 +2,7 @@
 # import time
 from Off_Cost_Cal import calculate_off_delay, calculate_linkquality
 
-# from environment1 import SnekEnv
+from environment1 import SnekEnv
 from environment_off import OffloadingEnv, State_I
 from stable_baselines3 import PPO
 from stable_baselines3.common.evaluation import evaluate_policy
@@ -16,14 +16,12 @@ env = OffloadingEnv()
 # 第一个参数指定网络类型，可选MlpPolicy，CnnPolicy，MultiInputPolicy
 # 如果想使用自定义的网络结构，可以在 policy_kwargs 参数中进行定义
 # loca = time.strftime('%Y-%m-%d_%H-%M-%S')
-model_name = 'ppo_bgmenv_' + str('move')
+model_name = 'ppo_bgmenv_1' + str('move')
 model = PPO('MlpPolicy', env=env, tensorboard_log='./tensorboard_logs/', n_epochs=5, n_steps=10)
-
-
 
 # 训练之前随机的 policy，可以获得的平均 reward 比较低
 mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=10, render=False)
-# print(f"Before training: mean_reward:{mean_reward:.2f} +/- {std_reward:.2f}")
+
 model.learn(total_timesteps=100000, reset_num_timesteps=False)
 
 model.save("dqn_lunar")

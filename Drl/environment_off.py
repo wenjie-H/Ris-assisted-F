@@ -27,7 +27,7 @@ class State_I:
             # for j, quality in enumerate(self.link_quality[i]):
             connections.extend((pos[0], pos[1], self.node_tasks[i], int(self.node_offload_status[i])))
             adjacency_matrix.append(connections)
-        return adjacency_matrix
+        return np.array(adjacency_matrix, dtype=int)
 
 
 class OffloadingEnv(gym.Env):
@@ -79,7 +79,8 @@ class OffloadingEnv(gym.Env):
         off_s = []
         for i in range(self.num_nodes):
             off_s.append(random.randint(0, len(self.BSs)))
-        self.current_state = State_I(self.nodes, self.tasks, np.array(off_s)).encode_state()
+            # off_s.append(0)
+        self.current_state = self.observation_space.sample()
         self.last_state = self.current_state
         self.current_step = 0
         return self.current_state, {}
@@ -106,7 +107,7 @@ class OffloadingEnv(gym.Env):
         # 记录上一个状态
         self.last_state = self.current_state
 
-        return self.current_state, reward, done, {}
+        return self.current_state, reward, done, False, {}
 
     def render(self):
         pass
@@ -126,15 +127,18 @@ if __name__ == '__main__':
 
     # 重置环境
     state = env.reset()
+    print('observation_space', env.observation_space.sample())
+    # print(env.current_state)
 
     # 执行一些动作
-    for _ in range(1000):
-        action = env.action_space.sample()  # 随机选择动作
-        # print(action)
-        next_state, reward, done, _ = env.step(action)
-        env.render()
-
-        if done:
-            print("Episode finished after {} timesteps".format(env.current_step))
-            break
+    # for _ in range(1000):
+    #     action = env.action_space.sample()  # 随机选择动作
+    #     # action = np.zeros(45)
+    #     # print(action)
+    #     next_state, reward, done, _ = env.step(action)
+    #     env.render()
+    #
+    #     if done:
+    #         print("Episode finished after {} timesteps".format(env.current_step))
+    #         break
 

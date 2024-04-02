@@ -14,9 +14,15 @@ Ad = 4.11  #antenna gain
 de = 3
 
 # Communication_Range = 100
-
+import numpy as np
 def Shannon(x1, x2, y1, y2):#输入就是坐标
-    distance = ((x1-x2)**2+(y1-y2)**2)**(1/2)
+    # 定义两个点的坐标
+    point1 = np.array([x1, y1])  # 第一个点的坐标
+    point2 = np.array([x2, y2])  # 第二个点的坐标
+
+    # 计算两点之间的距离
+    distance = np.linalg.norm(point2 - point1)
+    # distance = ((x1-x2)**2+(y1-y2)**2)**(1/2)
     if distance == 0:
         distance = 0.1
 
