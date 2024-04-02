@@ -25,23 +25,25 @@ mean_reward, std_reward = evaluate_policy(model, env, n_eval_episodes=10, render
 model.learn(total_timesteps=100000, reset_num_timesteps=False)
 
 model.save("dqn_lunar")
-# # del model  # delete trained model to demonstrate loading
-#
-# # Load the trained agent
-# # NOTE: if you have loading issue, you can pass `print_system_info=True`
-# # to compare the system on which the model was trained vs the current one
-# # model = DQN.load("dqn_lunar", env=env, print_system_info=True)
-# model = PPO.load("dqn_lunar", env=env)
+# del model  # delete trained model to demonstrate loading
 
+# Load the trained agent
+# NOTE: if you have loading issue, you can pass `print_system_info=True`
+# to compare the system on which the model was trained vs the current one
+# model = DQN.load("dqn_lunar", env=env, print_system_info=True)
+
+
+# model = PPO.load("dqn_lunar", env=env)
+#
 # import numpy as np
 # env.reset()
 #
 #
-# link_quality = np.array(calculate_linkquality(env.nodes, env.BSs))
-# obs = State_I(env.nodes, link_quality, np.zeros(45))
+# # link_quality = np.array(calculate_linkquality(env.nodes, env.BSs))
+# # obs = State_I(env.nodes, link_quality, np.zeros(45)).encode_state()
 #
-# print(obs)
-# env.state = obs
+# # print(obs)
+# env.state = env.current_state
 # for i in range(10):
 #     action, _states = model.predict(env.state, deterministic=False)
 #     obs, re, d, s, info = env.step(action)

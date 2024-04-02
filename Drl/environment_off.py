@@ -59,7 +59,7 @@ class OffloadingEnv(gym.Env):
 
         print('self.current_state', self.current_state)
         # 最大步数
-        self.max_steps = 100
+        self.max_steps = 0
 
         # 当前步数
         self.current_step = 0
@@ -96,9 +96,10 @@ class OffloadingEnv(gym.Env):
         # 计算奖励
         reward = -current_delay  # 示例中每步的奖励为卸载的节点数量的负值
         logging.info('reward:' + str(reward))
+        print('reward:' + str(reward))
 
         # 检查是否达到终止条件
-        done = self.current_step >= self.max_steps
+        done = 1
 
 
         # 更新步数
